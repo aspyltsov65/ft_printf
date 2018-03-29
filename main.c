@@ -12,14 +12,23 @@
 
 #include <stdio.h>
 #include "ft_printf.h"
+#include <stdlib.h>
 
 int main()
 {
-	// int a = 10;
+	char	r[5] = "hello";
+	int a = 2378;
+	int	c = 3456789;
+	char	y = 't';
 	// int *b = &a;
-	printf("%lu %lu", sizeof(void*), sizeof(unsigned long long int));
-	// ft_printf("hello_my friend %++05");
+	// char *str = NULL;
+	// unsigned int b = -23;
+	printf("%-10c\n", y);
+	// printf("|%010.7s|\n", r);
+	ft_printf("%-10c\n", y);
 	//printf("%#x\n", a);
 	// printf("%X\n", (unsigned int)b);
 	return (0);
 }
+
+
