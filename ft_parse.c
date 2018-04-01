@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "libprintf.h"
 #include <stdio.h> //////////////////////////////////////////////////////////
 
 int		ft_parse(const char *format, t_flags *pf, va_list argptr)
@@ -97,23 +96,23 @@ void	ft_specifier(char c, t_flags *pf, va_list argptr)
 {
 	if (c == 'p')
 		use_flags_diop(va_arg(argptr, size_t), pf, c);
-	else if (c == 'c')
-	// // 	if (pf->l == 1)
-	// // 		flag_for_c((va_arg(argptr, int), c));
-	// // 	else
+	else if (c == 'c' || c == 'C')
+		if (pf->l == 1 || c == 'C')
+			unicode_lc(va_arg(argptr, int), pf);
+		else
 			flag_wigth_c((char)(va_arg(argptr, int)), pf);
-	else if (c =='s')
-	// // 	// if (pf->l)
-	// // 	// 	use_flags(va_arg(argptr, int *), pf);
-	// // 	// else
+	else if (c =='s' || c =='S')
+		if (pf->l || c == 'S')
+			unicode_ls(va_arg(argptr, int *), pf);
+		else
 			flag_for_s(va_arg(argptr, char *), c, pf);
-	else if (c == 'd' || c == 'i')
+	else if (c == 'd' || c == 'i' || c == 'D')
 	{
 		if (pf->hh)
 			use_flags_diop((signed char)va_arg(argptr, int), pf, c);
 		else if (pf->h)
 			use_flags_diop((short int)va_arg(argptr, int), pf, c);
-		else if (pf->l)
+		else if (pf->l || c == 'D')
 			use_flags_diop(va_arg(argptr, long int), pf, c);
 		else if (pf->ll)
 			use_flags_diop(va_arg(argptr, long long int), pf, c);
@@ -124,13 +123,14 @@ void	ft_specifier(char c, t_flags *pf, va_list argptr)
 		else
 			use_flags_diop(va_arg(argptr, int), pf, c);
 	}
-	else if (c == 'u' || c == 'o' || c == 'x' || c == 'X')
+	else if (c == 'u' || c == 'o' || c == 'x' || c == 'X' || c == 'O' ||
+	c == 'U')
 	{
 		if (pf->hh)
 			use_flags_diop((unsigned int)va_arg(argptr, int), pf, c);
 		else if (pf->h)
 			use_flags_diop((unsigned int)va_arg(argptr, int), pf, c);
-		else if (pf->l)
+		else if (pf->l || c == 'U' || c == 'O')
 			use_flags_diop(va_arg(argptr, unsigned long int), pf, c);
 		else if (pf->ll)
 			use_flags_diop(va_arg(argptr, unsigned long long int), pf, c);

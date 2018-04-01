@@ -19,8 +19,8 @@
 
 # define BUFF_SIZE 4096
 
-char	*g_buff;
-int		g_i;
+char			*g_buff;
+int				g_i;
 
 typedef struct 	s_flags
 {
@@ -41,14 +41,26 @@ typedef struct 	s_flags
 	int			flag_p;
 }				t_flags;
 
-int		ft_printf(const char *format, ...);
-int		ft_parse(const char *format, t_flags *pf, va_list argptr);
-int		ft_wight_prec(const char *format, t_flags *pf);
-int		ft_length(const char *format, t_flags *pf);
-void	ft_specifier(char c, t_flags *pf, va_list argptr);
-void	use_flags_diop(unsigned long arg, t_flags *pf, char c);
-char	*ultoa_base(unsigned long int num, int base, int flag);
-char	*ft_strtoupper(char	*str);
-
+int				ft_printf(const char *format, ...);
+int				ft_parse(const char *format, t_flags *pf, va_list argptr);
+int				ft_wight_prec(const char *format, t_flags *pf);
+int				ft_length(const char *format, t_flags *pf);
+void			ft_specifier(char c, t_flags *pf, va_list argptr);
+char			*ultoa_base(unsigned long int num, int base, int flag);
+void			apply_flags(char *s, char c, t_flags *pf);
+char			*flag_prec(char	*s, t_flags *pf);
+char			*flag_hash(char	*s, char c);
+char			*flag_plus_space(char *s, t_flags *pf);
+char			*flag_wigth(char *s, char c, t_flags *pf);
+char			*flag_min(char *s, t_flags *pf);
+void			flag_for_s(char *s, char c, t_flags *pf);
+void			flag_wigth_c(char c, t_flags *pf);
+void			buff_add(char *s);
+void			unicode_lc(int c, t_flags *pf);
+void			unicode_ls(int *str, t_flags *pf);
+void			create_unicode(int c, char **str);
+void			my_join(char **str, char *s);
+char			*ft_strtoupper(char	*str);
+void			use_flags_diop(unsigned long arg, t_flags *pf, char c);
 
 #endif

@@ -11,8 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "libprintf.h"
-#include <stdio.h> ////////////////////////////////////////////////
+// #include <stdio.h> ////////////////////////////////////////////////
 
 char	*flag_min(char *s, t_flags *pf)
 {
@@ -101,9 +100,7 @@ char	*flag_wigth(char *s, char c, t_flags *pf)
 	{
 		while (i < pf->wigth - size)
 			str[i++] = ' ';
-		// printf("str before join %s\n", str);
 		str = (pf->min == 1 ? ft_strjoin(s, str) : ft_strjoin(str, s));
-		// printf("str after join %s\n", str);
 	}
 	else if (pf->zero == 1 && c != 'd' && c != 'i' && c != 'o' && c != 'x'
 	&& c != 'X')

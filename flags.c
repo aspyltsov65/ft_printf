@@ -11,8 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "libprintf.h"
-#include <stdio.h> ///////////////////////////////////
+// #include <stdio.h> ///////////////////////////////////
 
 void	apply_flags(char *s, char c, t_flags *pf)
 {
@@ -29,12 +28,12 @@ void	apply_flags(char *s, char c, t_flags *pf)
 	if (pf->flag_w == 1)
 		s = flag_wigth(s, c, pf);
 	i = 0;
+
 	buff_add(s);
 }
 
 void	buff_add(char *s)
 {
-	int i;
 	int	j;
 
 	j = ft_strlen(g_buff);
@@ -68,6 +67,7 @@ void	use_flags_diop(unsigned long int arg, t_flags *pf, char c)
 	long	i;
 	int		k;
 
+	s = NULL;
 	if (c == 'd' || c == 'i')
 	{
 		i = (long)arg;

@@ -13,7 +13,7 @@
 #include "libft/libft.h"
 #include <stdio.h> //////////////////////////////////
 
-static void	ft_put_num(unsigned long int num, int base, char *dst, int *j)
+static void	ft_put_num(unsigned long int num, unsigned long base, char *dst, int *j)
 {
 	char	str[] = "0123456789abcdef";
 

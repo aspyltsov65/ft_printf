@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include "ft_printf.h"
 #include <stdlib.h>
+#include <locale.h>
 
 int main()
 {
@@ -23,9 +24,11 @@ int main()
 	// int *b = &a;
 	// char *str = NULL;
 	// unsigned int b = -23;
-	printf("%-10c\n", y);
+	// setlocale(LC_ALL, "");
+	printf("%.3s\n",  NULL);
+	ft_printf("%.3s\n", NULL);
 	// printf("|%010.7s|\n", r);
-	ft_printf("%-10c\n", y);
+	// ft_printf("%-10c\n", y);
 	//printf("%#x\n", a);
 	// printf("%X\n", (unsigned int)b);
 	return (0);
