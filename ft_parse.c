@@ -94,6 +94,7 @@ int		ft_length(const char *format, t_flags *pf)
 
 void	ft_specifier(char c, t_flags *pf, va_list argptr)
 {
+	char	s[2];
 	if (c == 'p')
 		use_flags_diop(va_arg(argptr, size_t), pf, c);
 	else if (c == 'c' || c == 'C')
@@ -142,5 +143,9 @@ void	ft_specifier(char c, t_flags *pf, va_list argptr)
 			use_flags_diop(va_arg(argptr, unsigned int), pf, c);
 	}
 	else
-		g_buff[ft_strlen(g_buff)] = c;
+	{
+		ft_bzero(s, 2);
+		s[0] = c;
+		apply_flags(s, c, pf);
+	}
 }

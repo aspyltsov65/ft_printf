@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-// #include <stdio.h> ///////////////////////////////////
+#include <stdio.h> ///////////////////////////////////
 
 void	apply_flags(char *s, char c, t_flags *pf)
 {
@@ -36,6 +36,8 @@ void	buff_add(char *s)
 {
 	int	j;
 
+	if (!s)
+		return ;
 	j = ft_strlen(g_buff);
 	if (j + ft_strlen(s) < BUFF_SIZE)
 		ft_strcpy(g_buff + j, s);
