@@ -65,22 +65,21 @@ char	*flag_prec(char	*s, t_flags *pf)
 	return (str);
 }
 
-char	*flag_hash(char	*s, char c)
+char	*flag_hash(char	*s, char c, t_flags *pf)
 {
 	char	*time;
 
-	if (!s)
-		return(s);
 	time = s;
-	if (c == 'x' && s[0] != '0')
-			s = ft_strjoin("0x", time);
-	else if (c == 'X' && s[0] != '0')
-			s = ft_strjoin("0X", time);
-	else if (c == 'o' && s[0] != '0')
-		s = ft_strjoin("0", time);
+	if (c == 'x' && s && (s[0] != '0' || pf->prec > 1))
+		s = ft_strjoin("0x", time);
+	else if (c == 'X' && s && (s[0] != '0' || pf->prec > 1))
+		s = ft_strjoin("0X", time);
+	else if ((c == 'o' || c == 'O') && (!s || s[0] != '0'))
+			s = ft_strjoin("0", time);
 	else
 		return (s);
-	ft_strdel(&time);
+	if (time)
+		ft_strdel(&time);
 	return (s);
 }
 
@@ -98,19 +97,25 @@ char	*flag_wigth(char *s, char c, t_flags *pf)
 	if (!s)
 	{
 		while(i < pf->wigth)
-			str[i++] = ' ';
+			str[i++] = pf->zero == 1 ? '0' : ' ';
 		return (str);
 	}
-	if ((c == 'd' || c == 'i' || c == 'o' || c != 'x' || c == 'X') &&
-	pf->flag_p == 1)
+	if (pf->wigth < (int)ft_strlen(s))
+	{
+		ft_strdel(&str);
+		return(s);
+	}
+	if ((c == 'd' || c == 'D' || c == 'i' || c == 'o' || c == 'O' ||
+		c == 'x' || c == 'X') && pf->flag_p == 1)
 		pf->zero = 0;
-	else if (pf->zero == 1 && pf->min == 0)
+	if (pf->zero == 1 && pf->min == 0)
 	{
 		j = ft_strlen(s) - 1;
 		i = pf->wigth - 1;
 		while (i >= 0)
 		{
-			if ((s[j] == 'x' || s[j] == 'X' || j == -1) && i > j)
+			if ((s[j] == 'x' || s[j] == 'X' || s[j] == '+' || s[j] == '-'
+			|| s[j] == ' ' || j == -1) && i > j)
 				str[i] = '0';
 			else
 				str[i] = s[j--];
@@ -123,21 +128,25 @@ char	*flag_wigth(char *s, char c, t_flags *pf)
 			str[i++] = ' ';
 		str = (pf->min == 1 ? ft_strjoin(s, str) : ft_strjoin(str, s));
 	}
-	ft_strdel(&time);
+	if(time)
+		ft_strdel(&time);
 	return (str);
 }
 
-char	*flag_plus_space(char *s, t_flags *pf)
+char	*flag_plus_space(char *s, char c, t_flags *pf)
 {
 	char	*time;
 
-	if (!s)
+	if (!s || (ft_strlen(s) == 1 && s[0] == '0' && c != 'd'))
 		return(s);
 	if (ft_isdigit(s[0]) == 1)
 	{
 		time = s;		
-		s = (pf->plus == 1 ? ft_strjoin("+", s) : ft_strjoin(" ", s));
+		if (pf->plus == 1 && (c == 'd' || c == 'i')) 
+			s = ft_strjoin("+", s);
+		if (pf->space == 1 && pf->plus == 0 && (c == 'd' || c == 'i'))
+			s = ft_strjoin(" ", s);
 		ft_strdel(&time);
-	} 
+	}
 	return (s);
 }

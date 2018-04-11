@@ -27,7 +27,7 @@ char	*ultoa_base(unsigned long int num, int base, int flag)
 	char				*dst;
 	unsigned long int	n;
 	int					j;
-	
+
 	n = num;
 	j = 1;
 	j = (flag == 1 ? ++j : j);

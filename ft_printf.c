@@ -20,6 +20,7 @@ int	ft_printf(const char *format, ...)
 	va_list	argptr;
 
 	i = -1;
+	g_i = 0;
 	g_buff = (char *)ft_memalloc(sizeof(char) * BUFF_SIZE);
 	if (!(pf = (t_flags*)ft_memalloc(sizeof(t_flags))))
 		return (0);
@@ -30,18 +31,25 @@ int	ft_printf(const char *format, ...)
 			i += ft_parse(&format[i + 1], pf, argptr);
 			ft_bzero(pf, sizeof(t_flags));
 		}
-		else
+		else if (format[i] != '%')
 			if (ft_strlen(g_buff) + 1 < BUFF_SIZE)
 				g_buff[ft_strlen(g_buff)] = format[i];
 			else
 			{
 				ft_putstr(g_buff);
+				g_i += ft_strlen(g_buff);
 				ft_bzero(g_buff, BUFF_SIZE);
 				g_buff[ft_strlen(g_buff)] = format[i];
 			}
+		else
+			break;
 	va_end(argptr);
 	ft_putstr(g_buff);
-	return (ft_strlen(g_buff));
+	g_i += ft_strlen(g_buff);
+	ft_strdel(&g_buff);
+	// while(1)
+	// 	;
+	return (g_i);
 }
 
 
