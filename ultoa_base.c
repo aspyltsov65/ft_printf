@@ -11,18 +11,18 @@
 /* ************************************************************************** */
 
 #include "libft/libft.h"
-#include <stdio.h> //////////////////////////////////
 
-static void	ft_put_num(unsigned long int num, unsigned long base, char *dst, int *j)
+static void	ft_put_num(unsigned long int num, unsigned long base, char *dst,
+	int *j)
 {
-	char	str[] = "0123456789abcdef";
+	const char	str[] = "0123456789abcdef";
 
 	if (num >= base)
 		ft_put_num(num / base, base, dst, j);
 	dst[(*j)++] = str[num % base];
 }
 
-char	*ultoa_base(unsigned long int num, int base, int flag)
+char		*ultoa_base(unsigned long int num, int base, int flag)
 {
 	char				*dst;
 	unsigned long int	n;
@@ -33,8 +33,8 @@ char	*ultoa_base(unsigned long int num, int base, int flag)
 	j = (flag == 1 ? ++j : j);
 	while (n / base != 0 && ++j)
 		n /= base;
-	if(!(dst = (char *)ft_memalloc(sizeof(char) * (j + 1))))
-		return(NULL);
+	if (!(dst = (char *)ft_memalloc(sizeof(char) * (j + 1))))
+		return (NULL);
 	j = 0;
 	if (base == 10 && flag == 1)
 		dst[j++] = '-';

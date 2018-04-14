@@ -46,7 +46,8 @@ int	ft_printf(const char *format, ...)
 	va_end(argptr);
 	ft_putstr(g_buff);
 	g_i += ft_strlen(g_buff);
-	ft_strdel(&g_buff);
+	ft_memdel((void **)&g_buff);
+	ft_memdel((void **)&pf);
 	// while(1)
 	// 	;
 	return (g_i);

@@ -92,7 +92,7 @@ char	*flag_wigth(char *s, char c, t_flags *pf)
 
 	if (!(str = (char *)ft_memalloc(sizeof(char) * (pf->wigth + 1))))
 		return (NULL);
-	time = str;
+	// time = str;
 	i = 0;
 	if (!s)
 	{
@@ -126,10 +126,12 @@ char	*flag_wigth(char *s, char c, t_flags *pf)
 	{
 		while (i < pf->wigth - (int)ft_strlen(s))
 			str[i++] = ' ';
+		time = str;
 		str = (pf->min == 1 ? ft_strjoin(s, str) : ft_strjoin(str, s));
+		if(time)
+			ft_strdel(&time);
 	}
-	if(time)
-		ft_strdel(&time);
+	ft_strdel(&s);
 	return (str);
 }
 
@@ -142,11 +144,12 @@ char	*flag_plus_space(char *s, char c, t_flags *pf)
 	if (ft_isdigit(s[0]) == 1)
 	{
 		time = s;		
-		if (pf->plus == 1 && (c == 'd' || c == 'i')) 
+		if (pf->plus == 1 && (c == 'd' || c == 'i'))
 			s = ft_strjoin("+", s);
 		if (pf->space == 1 && pf->plus == 0 && (c == 'd' || c == 'i'))
 			s = ft_strjoin(" ", s);
-		ft_strdel(&time);
+		if(time != s)
+			ft_strdel(&time);
 	}
 	return (s);
 }

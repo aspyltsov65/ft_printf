@@ -12,36 +12,14 @@
 
 #include <stdio.h>
 #include "ft_printf.h"
-#include <stdlib.h>
-#include <locale.h>
 
 int main()
 {
-	char	r[5] = "hello";
-	int a = 2378;
-	int	c = 3456789;
-	char	y = 't';
+	// int a = 10;
 	// int *b = &a;
-	// char *str = NULL;
-	// unsigned int b = -23;
-	// setlocale(LC_ALL, "");
-	// printf("%010x\n", 542);
-	// ft_printf("my\n%010x\n", 542);
-
-	// printf("%#08x\n", 42);
-	// ft_printf("my\n%#08x\n", 42);
-// ok
-	printf("@moulitest: %.x %.0x\n", 0, 0);
-	ft_printf("my @moulitest: %.x %.0x\n\n", 0, 0);
-
-	printf("@moulitest: %#5.x %#5.0x\n", 0, 0);
-	ft_printf("my @moulitest: %#5.x %#5.0x\n", 0, 0);
-
-	// printf("|%010.7s|\n", r);
-	// ft_printf("%-10c\n", y);
+	printf("%lu %lu", sizeof(void*), sizeof(unsigned long long int));
+	// ft_printf("hello_my friend %++05");
 	//printf("%#x\n", a);
 	// printf("%X\n", (unsigned int)b);
 	return (0);
 }
-
-

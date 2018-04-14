@@ -22,7 +22,7 @@
 char			*g_buff;
 int				g_i;
 
-typedef struct 	s_flags
+typedef struct	s_flags
 {
 	int			min;
 	int			plus;
@@ -35,7 +35,7 @@ typedef struct 	s_flags
 	int			ll;
 	int			j;
 	int			z;
-	int 		wigth;
+	int			wigth;
 	int			flag_w;
 	int			prec;
 	int			flag_p;
@@ -49,8 +49,8 @@ void			ft_specifier(char c, t_flags *pf, va_list argptr);
 char			*ultoa_base(unsigned long int num, int base, int flag);
 void			apply_flags(char *s, char c, t_flags *pf);
 char			*flag_prec(char	*s, t_flags *pf);
-char			*flag_hash(char	*s, char c);
-char			*flag_plus_space(char *s, t_flags *pf);
+char			*flag_hash(char	*s, char c, t_flags *pf);
+char			*flag_plus_space(char *s, char c, t_flags *pf);
 char			*flag_wigth(char *s, char c, t_flags *pf);
 char			*flag_min(char *s, t_flags *pf);
 void			flag_for_s(char *s, char c, t_flags *pf);
@@ -58,6 +58,7 @@ void			flag_wigth_c(char c, t_flags *pf);
 void			buff_add(char *s);
 void			unicode_lc(int c, t_flags *pf);
 void			unicode_ls(int *str, t_flags *pf);
+void			unicode_prec(int *s, t_flags *pf);
 void			create_unicode(int c, char **str);
 void			my_join(char **str, char *s);
 char			*ft_strtoupper(char	*str);

@@ -129,7 +129,11 @@ void	ft_specifier(char c, t_flags *pf, va_list argptr)
 		else if (pf->hh)
 			use_flags_diop((signed char)va_arg(argptr, int), pf, c);
 		else
+		{
 			use_flags_diop(va_arg(argptr, int), pf, c);
+			// while(1)
+			// 	;
+		}
 	}
 	else if (c == 'u' || c == 'o' || c == 'x' || c == 'X' || c == 'O' ||
 	c == 'U')
@@ -155,6 +159,9 @@ void	ft_specifier(char c, t_flags *pf, va_list argptr)
 		s[0] = c;
 		pf->flag_p = 0;
 		apply_flags(s, c, pf);
+		// ft_strdel(&s);
+		// while (1)
+		// 	;
 	}
 	// while (1)
 	// 	;

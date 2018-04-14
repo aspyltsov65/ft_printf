@@ -45,6 +45,7 @@ void	buff_add(char *s)
 		ft_bzero(g_buff, BUFF_SIZE);
 		ft_strcpy(g_buff, s);
 	}
+	ft_strdel(&s);
 }
 
 char	*ft_strtoupper(char	*str)
@@ -64,6 +65,7 @@ char	*ft_strtoupper(char	*str)
 void	use_flags_diop(unsigned long int arg, t_flags *pf, char c)
 {
 	char	*s;
+	char	*time;
 	long	i;
 	int		k;
 
@@ -93,11 +95,17 @@ void	use_flags_diop(unsigned long int arg, t_flags *pf, char c)
 	{
 		if (arg == 0 &&  pf->flag_p == 1 && pf->prec == 0)
 		{
-				s = ft_strdup("0x");
-				pf->prec = 1;
+			s = ft_strdup("0x");
+			pf->prec = 1;
 		}
 		else
-			s = ft_strjoin("0x", ultoa_base(arg, 16, 0));
+		{
+			time = ultoa_base(arg, 16, 0);
+			s = ft_strjoin("0x", time);
+			ft_strdel(&time);
+		}
 	}
 	apply_flags(s, c, pf);
+	// ft_strdel(&s);
+	// printf("neabortitsa\n");
 }

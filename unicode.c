@@ -12,7 +12,6 @@
 
 #include "ft_printf.h"
 #include <stdio.h>
-#include <locale.h>//////////////////////////////////
 
 void	unicode_lc(int c, t_flags *pf)
 {
@@ -25,7 +24,6 @@ void	unicode_lc(int c, t_flags *pf)
 	pf->flag_p = 0;
 	apply_flags(s, 'C', pf);
 }
-
 
 void	create_unicode(int c, char **str)
 {
@@ -76,53 +74,40 @@ void	unicode_prec(int *s, t_flags *pf)
 	str = NULL;
 	while (s[++i])
 	{
-		if(s[i] <= 0x7F)
+		if (s[i] <= 0x7F)
 			num += 1;
-		else if(s[i] <= 0x7FF)
+		else if (s[i] <= 0x7FF)
 			num += 2;
-		else if(s[i] <= 0xFFFF)
+		else if (s[i] <= 0xFFFF)
 			num += 3;
 		else
 			num += 4;
 		if (num <= pf->prec)
 			create_unicode(s[i], &str);
 		else
-			break;
+			break ;
 	}
 	pf->flag_p = 0;
 	apply_flags(str, 'S', pf);
 }
+
 void	unicode_ls(int *str, t_flags *pf)
 {
 	int		i;
 	int		num;
 	char	*s;
 
-	// system ("leaks a.out");
 	i = -1;
 	s = NULL;
 	num = 0;
 	if ((char *)str == NULL)
 		flag_for_s((char *)str, 's', pf);
-	else if(pf->flag_p == 1)
+	else if (pf->flag_p == 1)
 		unicode_prec(str, pf);
 	else
 	{
 		while (str[++i])
 			create_unicode(str[i], &s);
-		// system ("leaks a.out");
 		apply_flags(s, 'S', pf);
-		// printf("\n\n");
-		// system ("leaks a.out");
 	}
 }
-
-
-
-
-
-
-
-
-
-
