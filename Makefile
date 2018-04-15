@@ -19,7 +19,9 @@ SRCFILL = ft_printf.c\
 		ultoa_base.c\
 		put_flags.c\
 		fl_cs.c\
-		unicode.c
+		unicode.c\
+		ft_specifier.c\
+		flag_wigth.c
 SOURCES = $(addprefix ./, $(SRCFILL))
 OBJECTS = $(addprefix ./obj/, $(SRCFILL:.c=.o))
 

@@ -12,25 +12,7 @@
 
 #include "ft_printf.h"
 
-void			flag_for_s(char *s, char c, t_flags *pf)
-{
-	char	*str;
-
-	if (s == NULL)
-		s = "(null)";
-	if (pf->flag_p == 1 && pf->prec < (int)ft_strlen(s))
-	{
-		str = (char *)ft_memalloc(sizeof(char) * pf->prec + 1);
-		str = ft_strncpy(str, s, pf->prec);
-	}
-	else
-		str = ft_strdup(s);
-	if (pf->flag_w == 1)
-		str = flag_wigth(str, c, pf);
-	buff_add(str);
-}
-
-static void		ft_func(t_plags *pf)
+static void		ft_func(char *str, int i, t_flags *pf)
 {
 	str = (char *)ft_memalloc(pf->wigth);
 	while (i < pf->wigth - 1)
@@ -57,7 +39,7 @@ void			flag_wigth_c(char c, t_flags *pf)
 	i = 0;
 	if (pf->flag_w == 1 && pf->wigth > 1)
 		if (s[0] == '\0')
-			ft_func(pf);
+			ft_func(str, i, pf);
 		else
 			str = flag_wigth(s, c, pf);
 	else
@@ -71,5 +53,23 @@ void			flag_wigth_c(char c, t_flags *pf)
 		else
 			str = ft_strdup(s);
 	}
+	buff_add(str);
+}
+
+void			flag_for_s(char *s, char c, t_flags *pf)
+{
+	char	*str;
+
+	if (s == NULL)
+		s = "(null)";
+	if (pf->flag_p == 1 && pf->prec < (int)ft_strlen(s))
+	{
+		str = (char *)ft_memalloc(sizeof(char) * pf->prec + 1);
+		str = ft_strncpy(str, s, pf->prec);
+	}
+	else
+		str = ft_strdup(s);
+	if (pf->flag_w == 1)
+		str = flag_wigth(str, c, pf);
 	buff_add(str);
 }

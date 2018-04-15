@@ -11,20 +11,12 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h> //////////////////////////////////////
 
-int	ft_printf(const char *format, ...)
+static void	parse_fstr(const char *format, t_flags *pf, va_list argptr)
 {
-	int		i;
-	t_flags	*pf;
-	va_list	argptr;
+	int	i;
 
 	i = -1;
-	g_i = 0;
-	g_buff = (char *)ft_memalloc(sizeof(char) * BUFF_SIZE);
-	if (!(pf = (t_flags*)ft_memalloc(sizeof(t_flags))))
-		return (0);
-	va_start(argptr, format);
 	while (format[++i] != '\0')
 		if (format[i] == '%' && format[i + 1])
 		{
@@ -42,15 +34,26 @@ int	ft_printf(const char *format, ...)
 				g_buff[ft_strlen(g_buff)] = format[i];
 			}
 		else
-			break;
+			break ;
+}
+
+int			ft_printf(const char *format, ...)
+{
+	int		i;
+	t_flags	*pf;
+	va_list	argptr;
+
+	i = -1;
+	g_i = 0;
+	g_buff = (char *)ft_memalloc(sizeof(char) * BUFF_SIZE);
+	if (!(pf = (t_flags*)ft_memalloc(sizeof(t_flags))))
+		return (0);
+	va_start(argptr, format);
+	parse_fstr(format, pf, argptr);
 	va_end(argptr);
 	ft_putstr(g_buff);
 	g_i += ft_strlen(g_buff);
 	ft_memdel((void **)&g_buff);
 	ft_memdel((void **)&pf);
-	// while(1)
-	// 	;
 	return (g_i);
 }
-
-

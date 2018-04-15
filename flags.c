@@ -11,9 +11,8 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h> ///////////////////////////////////
 
-void	apply_flags(char *s, char c, t_flags *pf)
+void		apply_flags(char *s, char c, t_flags *pf)
 {
 	int		size;
 
@@ -29,7 +28,7 @@ void	apply_flags(char *s, char c, t_flags *pf)
 	buff_add(s);
 }
 
-void	buff_add(char *s)
+void		buff_add(char *s)
 {
 	int	j;
 
@@ -48,24 +47,47 @@ void	buff_add(char *s)
 	ft_strdel(&s);
 }
 
-char	*ft_strtoupper(char	*str)
+char		*ft_strtoupper(char *str)
 {
 	int i;
 
 	i = 0;
 	while (str[i] != '\0')
 	{
-		if(str[i] >= 97 && str[i] <= 122)
+		if (str[i] >= 97 && str[i] <= 122)
 			str[i] = str[i] - 32;
 		i++;
 	}
 	return (str);
 }
 
-void	use_flags_diop(unsigned long int arg, t_flags *pf, char c)
+static void	use_flags_px(unsigned long int arg, char c, char **s, t_flags *pf)
+{
+	char	*time;
+
+	if (c == 'x')
+		*s = ultoa_base(arg, 16, 0);
+	else if (c == 'X')
+		*s = ft_strtoupper(ultoa_base(arg, 16, 0));
+	else if (c == 'p')
+	{
+		if (arg == 0 && pf->flag_p == 1 && pf->prec == 0)
+		{
+			*s = ft_strdup("0x");
+			pf->prec = 1;
+		}
+		else
+		{
+			time = ultoa_base(arg, 16, 0);
+			*s = ft_strjoin("0x", time);
+			ft_strdel(&time);
+		}
+	}
+}
+
+void		use_flags_diop(unsigned long int arg, t_flags *pf, char c)
 {
 	char	*s;
-	char	*time;
 	long	i;
 	int		k;
 
@@ -87,25 +109,7 @@ void	use_flags_diop(unsigned long int arg, t_flags *pf, char c)
 		pf->plus = 0;
 		s = ultoa_base(arg, 10, 0);
 	}
-	else if (c == 'x')
-		s = ultoa_base(arg, 16, 0);
-	else if (c == 'X')
-		s = ft_strtoupper(ultoa_base(arg, 16, 0));
-	else if (c == 'p')
-	{
-		if (arg == 0 &&  pf->flag_p == 1 && pf->prec == 0)
-		{
-			s = ft_strdup("0x");
-			pf->prec = 1;
-		}
-		else
-		{
-			time = ultoa_base(arg, 16, 0);
-			s = ft_strjoin("0x", time);
-			ft_strdel(&time);
-		}
-	}
+	else
+		use_flags_px(arg, c, &s, pf);
 	apply_flags(s, c, pf);
-	// ft_strdel(&s);
-	// printf("neabortitsa\n");
 }
